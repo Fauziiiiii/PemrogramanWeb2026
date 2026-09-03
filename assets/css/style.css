@@ -11,9 +11,9 @@ body {
     background-color: #f5f6f8;
     line-height: 1.5;
 }
-
+/* #1d5b8a */
 a {
-    color: #1d5b8a;
+    color: #065c15;
     text-decoration: none;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
 /* ===== Header & Navbar (Flexbox) ===== */
 header {
-    background-color: #1d5b8a;
+    background-color: #065c15;
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
@@ -64,21 +64,21 @@ section {
 
 section h2 {
     margin-bottom: 1rem;
-    color: #1d5b8a;
+    color: #065c15;
     text-align: center;
 }
 
 /* ===== Kartu Statistik (CSS Grid) ===== */
 main section .kartu-statistik {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     flex-wrap: wrap;
 }
 
 main section:nth-of-type(2) .kartu-statistik {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     flex-wrap: wrap;
 }
@@ -99,7 +99,7 @@ main section:nth-of-type(2) article h3 {
 main section:nth-of-type(2) article p {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #1d5b8a;
+    color: #065c15;
 }
 
 /* ===== Tabel ===== */
@@ -115,7 +115,7 @@ th, td {
 }
 
 thead {
-    background-color: #1d5b8a;
+    background-color: #065c15;
     color: #fff;
 }
 
@@ -136,12 +136,27 @@ td button {
     font-size: 0.85rem;
 }
 
-td button:first-of-type {
+/* td button:first-of-type {
     background-color: #f0ad4e;
     color: #fff;
 }
 
 td button:last-of-type {
+    background-color: #d9534f;
+    color: #fff;
+} */
+
+.btn-detail {
+    background-color: #5bc0de;
+    color: #fff;
+}
+
+.btn-edit {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+
+.btn-hapus {
     background-color: #d9534f;
     color: #fff;
 }
@@ -169,10 +184,11 @@ form select {
 }
 
 form button[type="submit"] {
-    background-color: #1d5b8a;
+    background-color: #065c15;
     color: #fff;
     border: none;
     padding: 0.6rem 1.5rem;
+
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
