@@ -47,15 +47,19 @@ header nav a {
     font-weight: 500;
 }
 
-.nav-toggle {
-    display: none;
+.navbar-brand,
+.nav-link {
+    color: #fff !important;
 }
 
-.nav-toggle-label {
-    display: none;
-    font-size: 1.6rem;
-    color: #fff;
-    cursor: pointer;
+.nav-link:hover,
+.nav-link.active {
+    color: #d9e8f5 !important;
+}
+
+form button[type="submit"]:hover,
+button[type="submit"]:hover {
+    background-color: #164869 !important;
 }
 
 /*  Main Layout  */
@@ -163,16 +167,6 @@ td button {
     cursor: pointer;
     font-size: 0.85rem;
 }
-
-/* td button:first-of-type {
-    background-color: #f0ad4e;
-    color: #fff;
-}
-
-td button:last-of-type {
-    background-color: #d9534f;
-    color: #fff;
-} */
 
 .btn-detail {
     background-color: #5bc0de;
