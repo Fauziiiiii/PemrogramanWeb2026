@@ -1,4 +1,4 @@
-/* ===== Reset & Base ===== */
+/*  Reset & Base  */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,7 +21,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ===== Header & Navbar (Flexbox) ===== */
+/*  Header & Navbar (Flexbox)  */
 header {
     background-color: #065c15;
     color: #fff;
@@ -47,7 +47,18 @@ header nav a {
     font-weight: 500;
 }
 
-/* ===== Main Layout ===== */
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    font-size: 1.6rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*  Main Layout  */
 main {
     max-width: 1000px;
     margin: 2rem auto;
@@ -68,15 +79,8 @@ section h2 {
     text-align: center;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
+/*  Kartu Statistik (CSS Grid)  */
 main section .kartu-statistik {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-main section:nth-of-type(2) .kartu-statistik {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
@@ -102,16 +106,31 @@ main section:nth-of-type(2) article p {
     color: #065c15;
 }
 
-/* ===== Tabel ===== */
+/*  Tabel  */
+.table-responsive {
+    overflow-x: auto;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
+    white-space: nowrap;
 }
 
-th, td {
+th {
+    text-align: center;
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid #e2e6ea;
+}
+
+td {
     text-align: left;
     padding: 0.65rem 0.75rem;
     border-bottom: 1px solid #e2e6ea;
+}
+
+td.action-column {
+    text-align: center;
 }
 
 thead {
@@ -125,6 +144,15 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background-color: #eef4fa;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
 }
 
 td button {
@@ -161,7 +189,7 @@ td button:last-of-type {
     color: #fff;
 }
 
-/* ===== Form ===== */
+/*  Form  */
 form p {
     margin-bottom: 1rem;
 }
@@ -198,10 +226,51 @@ form button[type="submit"]:hover {
     background-color: #164869;
 }
 
-/* ===== Footer ===== */
+/*  Footer  */
 footer {
     text-align: center;
     padding: 1.25rem;
     color: #7a8794;
     font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    main section:nth-of-type(2) .kartu-statistik {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        position: relative;
+    }
+
+    .nav-toggle-label {
+        display: block;
+    }
+
+    header nav {
+        display: none;
+        width: 100%;
+        order: 3;
+        margin-top: 1rem;
+    }
+
+    .nav-toggle:checked ~ nav {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    main section:nth-of-type(2) .kartu-statistik {
+        grid-template-columns: 1fr;
+    }
+
+    form input,
+    form select {
+        max-width: 100%;
+    }
 }
