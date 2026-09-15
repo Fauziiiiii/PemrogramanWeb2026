@@ -30,6 +30,11 @@
         <section>
             <h2>Daftar Buku</h2>
             
+            <div class="search-box mb-3">
+                <label for="search-input">Cari Judul Buku</label>
+                <input type="text" id="search-input" placeholder="Ketik judul buku...">
+            </div>
+            
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-secondary">
@@ -50,9 +55,9 @@
                                 <span class="badge text-bg-primary">Tersedia: 4</span>
                             </td>
                             <td class="action-column">
-                                <button class="btn btn-info btn-sm text-white">Detail</button>
-                                <button class="btn btn-warning btn-sm text-white">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button type="button" class="btn btn-info btn-sm text-white">Detail</button>
+                                <button type="button" class="btn btn-warning btn-sm text-white">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <tr>
@@ -63,9 +68,9 @@
                                 <span class="badge text-bg-primary">Tersedia: 2</span>
                             </td>
                             <td class="action-column">
-                                <button class="btn btn-info btn-sm text-white">Detail</button>
-                                <button class="btn btn-warning btn-sm text-white">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button type="button" class="btn btn-info btn-sm text-white">Detail</button>
+                                <button type="button" class="btn btn-warning btn-sm text-white">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <tr>
@@ -76,9 +81,9 @@
                                 <span class="badge text-bg-danger">Kosong</span>
                             </td>
                             <td class="action-column">
-                                <button class="btn btn-info btn-sm text-white">Detail</button>
-                                <button class="btn btn-warning btn-sm text-white">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button type="button" class="btn btn-info btn-sm text-white">Detail</button>
+                                <button type="button" class="btn btn-warning btn-sm text-white">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <tr>
@@ -89,9 +94,9 @@
                                 <span class="badge text-bg-primary">Tersedia: 5</span>
                             </td>
                             <td class="action-column">
-                                <button class="btn btn-info btn-sm text-white">Detail</button>
-                                <button class="btn btn-warning btn-sm text-white">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button type="button" class="btn btn-info btn-sm text-white">Detail</button>
+                                <button type="button" class="btn btn-warning btn-sm text-white">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <tr>
@@ -102,9 +107,9 @@
                                 <span class="badge text-bg-primary">Tersedia: 1</span>
                             </td>
                             <td class="action-column">
-                                <button class="btn btn-info btn-sm text-white">Detail</button>
-                                <button class="btn btn-warning btn-sm text-white">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button type="button" class="btn btn-info btn-sm text-white">Detail</button>
+                                <button type="button" class="btn btn-warning btn-sm text-white">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
                             </td>
                         </tr>
                     </tbody>
@@ -118,5 +123,39 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== Konfirmasi hapus (front-end only, belum ke server) =====
+        function initHapusConfirm() {
+            document.querySelectorAll(".btn-hapus").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    const row = btn.closest("tr");
+                    const nama = row ? row.querySelector("td")?.textContent : "data ini";
+                    const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
+                    if (yakin && row) {
+                        row.remove();
+                    }
+                });
+            });
+        }
+
+        // ===== Filter/pencarian tabel real-time =====
+        function initTableFilter() {
+            const input = document.getElementById("search-input");
+            const table = document.querySelector(".table-responsive table");
+            if (!input || !table) return;
+
+            input.addEventListener("keyup", function () {
+                const keyword = input.value.toLowerCase();
+                const rows = table.querySelectorAll("tbody tr");
+                rows.forEach(function (row) {
+                    const teks = row.textContent.toLowerCase();
+                    row.style.display = teks.includes(keyword) ? "" : "none";
+                });
+            });
+        }
+
+        initTableFilter();
+        initHapusConfirm();
+    </script>
 </body>
 </html>

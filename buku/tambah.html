@@ -33,7 +33,7 @@
 
                 <div id="liveAlertPlaceholder"></div>
 
-                <form id="formTambahBuku">
+                <form id="form-tambah" novalidate>
                     <div class="mb-3">
                         <label for="judul" class="form-label fw-medium">Judul Buku</label>
                         <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan judul buku" required>
@@ -81,11 +81,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-        const formTambahBuku = document.getElementById('formTambahBuku');
+        const formTambahBuku = document.getElementById('form-tambah');
 
-        const appendAlert = (message, type) => {
+        function appendAlert(message, type) {
             alertPlaceholder.innerHTML = '';
-            
+
             const wrapper = document.createElement('div');
             wrapper.innerHTML = [
                 `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
@@ -97,12 +97,82 @@
             alertPlaceholder.append(wrapper);
         }
 
+        // ===== Validasi form (client-side) =====
+        function tampilkanError(input, pesan) {
+            hapusError(input);
+            const span = document.createElement('span');
+            span.className = 'error';
+            span.textContent = pesan;
+            input.insertAdjacentElement('afterend', span);
+        }
+
+        function hapusError(input) {
+            const next = input.nextElementSibling;
+            if (next && next.classList.contains('error')) {
+                next.remove();
+            }
+        }
+
+        function validasiWajibIsi(input, label) {
+            if (!input) return true;
+            if (input.value.trim() === '') {
+                tampilkanError(input, `${label} wajib diisi.`);
+                return false;
+            }
+            hapusError(input);
+            return true;
+        }
+
+        function validasiForm(form) {
+            let valid = true;
+
+            const judul = form.querySelector("[name='judul']");
+            if (!validasiWajibIsi(judul, 'Judul buku')) valid = false;
+
+            const pengarang = form.querySelector("[name='pengarang']");
+            if (!validasiWajibIsi(pengarang, 'Pengarang')) valid = false;
+
+            const tahun = form.querySelector("[name='tahun']");
+            if (tahun) {
+                const nilaiTahun = Number(tahun.value);
+                if (tahun.value.trim() === '') {
+                    tampilkanError(tahun, 'Tahun terbit wajib diisi.');
+                    valid = false;
+                } else if (nilaiTahun < 1900 || nilaiTahun > 2026) {
+                    tampilkanError(tahun, 'Tahun terbit harus antara 1900-2026.');
+                    valid = false;
+                } else {
+                    hapusError(tahun);
+                }
+            }
+
+            const stok = form.querySelector("[name='stok']");
+            if (stok) {
+                if (stok.value.trim() === '') {
+                    tampilkanError(stok, 'Stok wajib diisi.');
+                    valid = false;
+                } else if (Number(stok.value) < 0) {
+                    tampilkanError(stok, 'Stok tidak boleh negatif.');
+                    valid = false;
+                } else {
+                    hapusError(stok);
+                }
+            }
+
+            return valid;
+        }
+
         if (formTambahBuku) {
-            formTambahBuku.addEventListener('submit', (event) => {
-                event.preventDefault(); 
-                
+            formTambahBuku.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const valid = validasiForm(formTambahBuku);
+
+                if (!valid) {
+                    return;
+                }
+
                 appendAlert('Sukses! Data buku baru berhasil disimpan.', 'success');
-                
                 formTambahBuku.reset();
             });
         }
