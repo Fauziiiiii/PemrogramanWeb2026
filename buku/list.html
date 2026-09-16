@@ -34,6 +34,8 @@
                 <label for="search-input">Cari Judul Buku</label>
                 <input type="text" id="search-input" placeholder="Ketik judul buku...">
             </div>
+
+            <p id="row-counter" class="text-muted small mb-2"></p>
             
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
@@ -133,13 +135,29 @@
                     const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
                     if (yakin && row) {
                         row.remove();
+                        updateCounter(document.querySelector(".table-responsive table"))
                     }
                 });
             });
         }
 
         // ===== Filter/pencarian tabel real-time =====
-        function initTableFilter() {
+        // function initTableFilter() {
+        //     const input = document.getElementById("search-input");
+        //     const table = document.querySelector(".table-responsive table");
+        //     if (!input || !table) return;
+
+        //     input.addEventListener("keyup", function () {
+        //         const keyword = input.value.toLowerCase();
+        //         const rows = table.querySelectorAll("tbody tr");
+        //         rows.forEach(function (row) {
+        //             const teks = row.textContent.toLowerCase();
+        //             row.style.display = teks.includes(keyword) ? "" : "none";
+        //         });
+        //     });
+        // }
+
+        function initTableFilter(kolomIndex) {
             const input = document.getElementById("search-input");
             const table = document.querySelector(".table-responsive table");
             if (!input || !table) return;
@@ -147,15 +165,37 @@
             input.addEventListener("keyup", function () {
                 const keyword = input.value.toLowerCase();
                 const rows = table.querySelectorAll("tbody tr");
+
                 rows.forEach(function (row) {
-                    const teks = row.textContent.toLowerCase();
+                    const sel = row.querySelectorAll("td")[kolomIndex];
+                    const teks = sel ? sel.textContent.toLowerCase() : "";
                     row.style.display = teks.includes(keyword) ? "" : "none";
                 });
+
+                updateCounter(table);
             });
         }
 
-        initTableFilter();
+        function updateCounter(table) {
+            const counterEl = document.getElementById("row-counter");
+            if (!counterEl) return;
+
+            const rows = table.querySelectorAll("tbody tr");
+            const total = rows.length;
+            const tampil = Array.from(rows).filter(function (row) {
+                return row.style.display !== "none";
+            }).length;
+
+            const label = table.closest("section").querySelector("h2").textContent.includes("Buku") ? "buku" : "anggota";
+            counterEl.textContent = `Menampilkan ${tampil} dari ${total} ${label}`;
+        }
+
+        // Filter untuk kolom judul menggunakan index 0
+        initTableFilter(0);
+
         initHapusConfirm();
+
+        updateCounter(document.querySelector(".table-responsive table"))
     </script>
 </body>
 </html>

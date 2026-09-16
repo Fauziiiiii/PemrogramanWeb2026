@@ -82,6 +82,29 @@
     <script>
         const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
         const formTambahBuku = document.getElementById('form-tambah');
+        const aturanValidasi = [
+            { name: 'judul', label: 'Judul buku', wajib: true },
+            { name: 'pengarang', label: 'Pengarang', wajib: true },
+            {
+                name: 'tahun', label: 'Tahun terbit', wajib: true,
+                custom: (nilai) => {
+                    const angka = Number(nilai);
+                    if (angka < 1900 || angka > 2026) return 'Tahun terbit harus antara 1900-2026.';
+                    return null;
+                }
+            },
+            {
+                name: 'stok', label: 'Stok', wajib: true,
+                custom: (nilai) => (Number(nilai) < 0 ? 'Stok tidak boleh negatif.' : null)
+            },
+            {
+                name: 'isbn', label: 'ISBN', wajib: false,
+                custom: (nilai) => {
+                    const formatBenar = /^[0-9-]+$/.test(nilai);
+                    return formatBenar ? null : 'ISBN hanya boleh berisi angka dan tanda hubung (-).';
+                }
+            }
+        ];
 
         function appendAlert(message, type) {
             alertPlaceholder.innerHTML = '';
@@ -123,41 +146,73 @@
             return true;
         }
 
+        // function validasiForm(form) {
+        //     let valid = true;
+
+        //     const judul = form.querySelector("[name='judul']");
+        //     if (!validasiWajibIsi(judul, 'Judul buku')) valid = false;
+
+        //     const pengarang = form.querySelector("[name='pengarang']");
+        //     if (!validasiWajibIsi(pengarang, 'Pengarang')) valid = false;
+
+        //     const tahun = form.querySelector("[name='tahun']");
+        //     if (tahun) {
+        //         const nilaiTahun = Number(tahun.value);
+        //         if (tahun.value.trim() === '') {
+        //             tampilkanError(tahun, 'Tahun terbit wajib diisi.');
+        //             valid = false;
+        //         } else if (nilaiTahun < 1900 || nilaiTahun > 2026) {
+        //             tampilkanError(tahun, 'Tahun terbit harus antara 1900-2026.');
+        //             valid = false;
+        //         } else {
+        //             hapusError(tahun);
+        //         }
+        //     }
+
+        //     const stok = form.querySelector("[name='stok']");
+        //     if (stok) {
+        //         if (stok.value.trim() === '') {
+        //             tampilkanError(stok, 'Stok wajib diisi.');
+        //             valid = false;
+        //         } else if (Number(stok.value) < 0) {
+        //             tampilkanError(stok, 'Stok tidak boleh negatif.');
+        //             valid = false;
+        //         } else {
+        //             hapusError(stok);
+        //         }
+        //     }
+
+        //     return valid;
+        // }
+
         function validasiForm(form) {
             let valid = true;
 
-            const judul = form.querySelector("[name='judul']");
-            if (!validasiWajibIsi(judul, 'Judul buku')) valid = false;
-
-            const pengarang = form.querySelector("[name='pengarang']");
-            if (!validasiWajibIsi(pengarang, 'Pengarang')) valid = false;
-
-            const tahun = form.querySelector("[name='tahun']");
-            if (tahun) {
-                const nilaiTahun = Number(tahun.value);
-                if (tahun.value.trim() === '') {
-                    tampilkanError(tahun, 'Tahun terbit wajib diisi.');
-                    valid = false;
-                } else if (nilaiTahun < 1900 || nilaiTahun > 2026) {
-                    tampilkanError(tahun, 'Tahun terbit harus antara 1900-2026.');
-                    valid = false;
-                } else {
-                    hapusError(tahun);
+            aturanValidasi.forEach(function (aturan) {
+                const input = form.querySelector(`[name='${aturan.name}']`);
+                if (!input) {
+                    return;
                 }
-            }
 
-            const stok = form.querySelector("[name='stok']");
-            if (stok) {
-                if (stok.value.trim() === '') {
-                    tampilkanError(stok, 'Stok wajib diisi.');
+                const nilai = input.value.trim();
+
+                if (aturan.wajib && nilai === '') {
+                    tampilkanError(input, `${aturan.label} wajib diisi.`);
                     valid = false;
-                } else if (Number(stok.value) < 0) {
-                    tampilkanError(stok, 'Stok tidak boleh negatif.');
-                    valid = false;
-                } else {
-                    hapusError(stok);
+                    return; 
                 }
-            }
+
+                if (nilai !== '' && aturan.custom) {
+                    const pesanError = aturan.custom(nilai);
+                    if (pesanError) {
+                        tampilkanError(input, pesanError);
+                        valid = false;
+                        return;
+                    }
+                }
+
+                hapusError(input);
+            });
 
             return valid;
         }

@@ -34,6 +34,9 @@
                 <label for="search-input">Cari Anggota</label>
                 <input type="text" id="search-input" placeholder="Ketik nama anggota...">
             </div>
+
+            <p id="row-counter" class="text-muted small mb-2"></p>
+
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-secondary">
@@ -128,7 +131,7 @@
         }
 
         // ===== Filter/pencarian tabel real-time =====
-        function initTableFilter() {
+        function initTableFilter(kolomIndex) {
             const input = document.getElementById("search-input");
             const table = document.querySelector(".table-responsive table");
             if (!input || !table) return;
@@ -136,14 +139,20 @@
             input.addEventListener("keyup", function () {
                 const keyword = input.value.toLowerCase();
                 const rows = table.querySelectorAll("tbody tr");
+
                 rows.forEach(function (row) {
-                    const teks = row.textContent.toLowerCase();
+                    const sel = row.querySelectorAll("td")[kolomIndex];
+                    const teks = sel ? sel.textContent.toLowerCase() : "";
                     row.style.display = teks.includes(keyword) ? "" : "none";
                 });
+
+                updateCounter(table);
             });
         }
 
-        initTableFilter();
+        // Filter untuk kolom nama menggunakan index 1
+        initTableFilter(1);
+
         initHapusConfirm();
     </script>
 </body>
