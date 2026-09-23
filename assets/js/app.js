@@ -47,22 +47,14 @@ function updateCounter(table) {
     counterEl.textContent = `Menampilkan ${tampil} dari ${total} ${label}`;
 }
 
-// Inisialisasi otomatis saat halaman dimuat
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const sectionTitle = document.querySelector("h2");
-    
+
     if (sectionTitle) {
         if (sectionTitle.textContent.includes("Buku")) {
             initTableFilter(0); // Index 0 untuk Judul Buku
         } else if (sectionTitle.textContent.includes("Anggota")) {
             initTableFilter(1); // Index 1 untuk Nama Anggota
         }
-        
-        // Jalankan fungsi lainnya
-        initHapusConfirm();
-        const table = document.querySelector(".table-responsive table");
-        // if (table) {
-        //     updateCounter(table);
-        // }
     }
 });

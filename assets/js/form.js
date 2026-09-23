@@ -3,27 +3,32 @@ const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
 function appendAlert(message, type) {
     if (!alertPlaceholder) return;
     alertPlaceholder.innerHTML = '';
+
     const wrapper = document.createElement('div');
+    wrapper.className = `alert alert-${type}`;
     wrapper.innerHTML = [
-        `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
-        `   <div>${message}</div>`,
-        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-        '</div>'
+        `<span>${message}</span>`,
+        '<button type="button" class="alert-close" aria-label="Tutup">&times;</button>'
     ].join('');
+
+    wrapper.querySelector('.alert-close').addEventListener('click', function () {
+        wrapper.remove();
+    });
+
     alertPlaceholder.append(wrapper);
 }
 
 function tampilkanError(input, pesan) {
     hapusError(input);
     const span = document.createElement('span');
-    span.className = 'error text-danger small mt-1 d-block'; // Tambah class Bootstrap agar rapi
+    span.className = 'error';
     span.textContent = pesan;
     input.insertAdjacentElement('afterend', span);
-    input.classList.add('is-invalid');
+    input.classList.add('input-error');
 }
 
 function hapusError(input) {
-    input.classList.remove('is-invalid');
+    input.classList.remove('input-error');
     const next = input.nextElementSibling;
     if (next && next.classList.contains('error')) {
         next.remove();
@@ -88,7 +93,7 @@ const aturanBuku = [
 const aturanAnggota = [
     { name: 'nama', label: 'Nama Lengkap', wajib: true },
     { name: 'no_anggota', label: 'No. Anggota', wajib: true },
-    { 
+    {
         name: 'no_hp', label: 'No. HP', wajib: false,
         custom: (nilai) => {
             const formatBenar = /^[0-9+]+$/.test(nilai); // Hanya angka dan '+'
@@ -98,7 +103,7 @@ const aturanAnggota = [
 ];
 
 // Inisialisasi saat Halaman Dimuat
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const formTambah = document.getElementById('form-tambah');
     const judulHalaman = document.querySelector('h2');
 
@@ -122,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (isValid) {
                 appendAlert(pesanSukses, 'success');
                 formTambah.reset();
-                formTambah.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+                formTambah.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
             } else {
                 appendAlert('Gagal! Silakan periksa kembali isian form.', 'danger');
             }

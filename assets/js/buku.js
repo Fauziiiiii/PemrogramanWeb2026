@@ -19,23 +19,28 @@ async function muatDaftarBuku() {
 
         daftarBuku.forEach(function (buku) {
             const tr = document.createElement("tr");
+
+            const badgeStok = buku.stok > 0
+                ? "<span class=\"badge badge-tersedia\">Tersedia: " + buku.stok + "</span>"
+                : "<span class=\"badge badge-kosong\">Kosong</span>";
+
             tr.innerHTML =
                 "<td>" + buku.judul + "</td>" +
                 "<td>" + buku.pengarang + "</td>" +
                 "<td>" + buku.tahun + "</td>" +
-                "<td>" + 
-                    "<span class=\"badge text-bg-primary\">tersedia: " + buku.stok + "</span>" +
-                "</td>" +
+                "<td>" + badgeStok + "</td>" +
                 "<td class=\"action-column\">" +
-                    "<button type=\"button\" class=\"btn btn-info btn-sm text-white\">Detail</button> " +
-                    "<button type=\"button\" class=\"btn btn-warning btn-sm text-white\">Edit</button> " +
-                    "<button type=\"button\" class=\"btn btn-danger btn-sm btn-hapus\">Hapus</button>" +
+                    "<div class=\"action-buttons\">" +
+                        "<button type=\"button\" class=\"btn-detail\">Detail</button>" +
+                        "<button type=\"button\" class=\"btn-edit\">Edit</button>" +
+                        "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
+                    "</div>" +
                 "</td>";
             tbody.appendChild(tr);
         });
 
-        if (typeof updateCounter === 'function') updateCounter(document.querySelector(".table-responsive table"));
-        if (typeof initHapusConfirm === 'function') initHapusConfirm();
+        if (typeof updateCounter === "function") updateCounter(document.querySelector(".table-responsive table"));
+        if (typeof initHapusConfirm === "function") initHapusConfirm();
     } catch (err) {
         tbody.innerHTML =
             "<tr><td colspan=\"5\">Gagal memuat data: " + err.message + "</td></tr>";
