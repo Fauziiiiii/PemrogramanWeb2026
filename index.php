@@ -1,9 +1,10 @@
 <?php
     $page_title = "Beranda";
+    require __DIR__ . '/includes/koneksi.php';
     include __DIR__ . '/includes/header.php';
 
-    $totalBuku = count($_SESSION['buku'] ?? []);
-    $totalAnggota = count($_SESSION['anggota'] ?? []);
+    $totalBuku = $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn();
+    $totalAnggota = $pdo->query("SELECT COUNT(*) FROM anggota")->fetchColumn();
 ?>
         <section>
             <h2>Selamat Datang di Sistem Perpustakaan Mini</h2>
@@ -16,19 +17,19 @@
             <div class="kartu-statistik">
                 <article>
                     <h3>Total Buku</h3>
-                    <p>12</p>
+                    <p><?php echo $totalBuku; ?></p>
                 </article>
                 <article>
                     <h3>Total Anggota</h3>
-                    <p>8</p>
+                    <p><?php echo $totalAnggota; ?></p>
                 </article>
                 <article>
                     <h3>Sedang Dipinjam</h3>
-                    <p>3</p>
+                    <p>0</p>
                 </article>
                 <article>
                     <h3>Buku Terlambat</h3>
-                    <p>3</p>
+                    <p>0</p>
                 </article>
             </div>
         </section>
