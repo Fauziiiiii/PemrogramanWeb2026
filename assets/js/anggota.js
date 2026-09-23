@@ -24,15 +24,17 @@ async function muatDaftarAnggota() {
                 "<td>" + anggota.alamat + "</td>" +
                 "<td>" + anggota.no_hp + "</td>" +
                 "<td class=\"action-column\">" +
-                    "<button type=\"button\" class=\"btn btn-info btn-sm text-white\">Detail</button> " +
-                    "<button type=\"button\" class=\"btn btn-warning btn-sm text-white\">Edit</button> " +
-                    "<button type=\"button\" class=\"btn btn-danger btn-sm btn-hapus\">Hapus</button>" +
+                    "<div class=\"action-buttons\">" +
+                        "<button type=\"button\" class=\"btn-detail\">Detail</button>" +
+                        "<button type=\"button\" class=\"btn-edit\">Edit</button>" +
+                        "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
+                    "</div>" +
                 "</td>";
             tbody.appendChild(tr);
         });
 
-        if (typeof updateCounter === 'function') updateCounter(document.querySelector(".table-responsive table"));
-        if (typeof initHapusConfirm === 'function') initHapusConfirm();
+        if (typeof updateCounter === "function") updateCounter(document.querySelector(".table-responsive table"));
+        if (typeof initHapusConfirm === "function") initHapusConfirm();
     } catch (err) {
         tbody.innerHTML =
             "<tr><td colspan=\"5\">Gagal memuat data: " + err.message + "</td></tr>";
