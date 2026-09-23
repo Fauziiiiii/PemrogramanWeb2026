@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 require __DIR__ . '/../includes/koneksi.php';
+=======
+>>>>>>> a0dcd3308ae97dc9e17ac9255edd2940140e1799
 session_start();
 
 $nama = trim($_POST['nama'] ?? '');
@@ -21,6 +24,7 @@ if (!empty($errors)) {
     exit;
 }
 
+<<<<<<< HEAD
 // if (!isset($_SESSION['anggota'])) {
 //     $_SESSION['anggota'] = [];
 // }
@@ -43,6 +47,18 @@ $stmt->execute([
     'alamat' => $alamat,
     'no_hp' => $noHp
 ]);
+=======
+if (!isset($_SESSION['anggota'])) {
+    $_SESSION['anggota'] = [];
+}
+
+$_SESSION['anggota'][] = [
+    'nama' => $nama,
+    'no_anggota' => $noAnggota,
+    'alamat' => $alamat,
+    'no_hp' => $noHp,
+];
+>>>>>>> a0dcd3308ae97dc9e17ac9255edd2940140e1799
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
 header('Location: list.php');

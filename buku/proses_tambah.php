@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 require __DIR__ . '/../includes/koneksi.php';
+=======
+>>>>>>> a0dcd3308ae97dc9e17ac9255edd2940140e1799
 session_start();
 
 $judul = trim($_POST['judul'] ?? '');
@@ -32,6 +35,7 @@ if (!empty($errors)) {
     exit;
 }
 
+<<<<<<< HEAD
 // if (!isset($_SESSION['buku'])) {
 //     $_SESSION['buku'] = [];
 // }
@@ -51,13 +55,24 @@ $stmt = $pdo->prepare(
      RETURNING id"
 );
 $stmt->execute([
+=======
+if (!isset($_SESSION['buku'])) {
+    $_SESSION['buku'] = [];
+}
+
+$_SESSION['buku'][] = [
+>>>>>>> a0dcd3308ae97dc9e17ac9255edd2940140e1799
     'judul' => $judul,
     'pengarang' => $pengarang,
     'tahun' => (int) $tahun,
     'isbn' => $isbn,
     'stok' => (int) $stok,
     'kategori' => $kategori,
+<<<<<<< HEAD
 ]);
+=======
+];
+>>>>>>> a0dcd3308ae97dc9e17ac9255edd2940140e1799
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];
 header('Location: list.php');

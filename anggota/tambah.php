@@ -40,4 +40,16 @@
                 </div>
             </form>
         </section>
+<<<<<<< HEAD
 <?php include __DIR__ . '/../includes/footer.php'; ?>
+=======
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SIMPUS-Mini &mdash; Jobsheet 1</p>
+    </footer>
+
+    <script src="../assets/js/form.js"></script>
+</body>
+</html>
+>>>>>>> a0dcd3308ae97dc9e17ac9255edd2940140e1799
