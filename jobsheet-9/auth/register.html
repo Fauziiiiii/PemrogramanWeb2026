@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SIMPUS-Mini</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+
+            <h1>Buat Akun</h1>
+            <p class="auth-subtitle">Daftar untuk menggunakan SIMPUS-Mini</p>
+
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Masukkan email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password" minlength="8" required>
+                    <p class="form-hint">Password minimal 8 karakter.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation">Konfirmasi Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Masukkan ulang password" minlength="8" required>
+                </div>
+
+                <div class="form-group checkbox-row">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">Saya menyetujui syarat dan ketentuan yang berlaku.</label>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-block">Daftar</button>
+                </div>
+            </form>
+
+            <p class="auth-footer">
+                Sudah memiliki akun?
+                <a href="login.html">Login</a>
+            </p>
+        </div>
+
+        <p class="auth-back">
+            <a href="../index.html">&larr; Kembali ke halaman utama</a>
+        </p>
+    </div>
+</body>
+</html>
