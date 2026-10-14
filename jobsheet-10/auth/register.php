@@ -22,7 +22,7 @@ unset($_SESSION['flash']);
 
             <form method="post" action="proses_register.php">
                 <div class="form-group">
-                    <label for="nama">Nama Lengkap</label>
+                    <label for="nama">Nama</label>
                     <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
                 </div>
                 <div class="form-group">
@@ -37,6 +37,6 @@ unset($_SESSION['flash']);
                     <button type="submit">Daftar</button>
                 </div>
             </form>
-            <p style="margin-top: 1rem; text-align: center;">Sudah punya akun? <a href="login.php">Login di sini</a></p>
+            <p class="hint-text" style="margin-top: 1rem;">Sudah punya akun? <a href="login.php">Login di sini</a></p>
         </section>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

@@ -33,6 +33,6 @@ unset($_SESSION['flash']);
                     <button type="submit">Masuk</button>
                 </div>
             </form>
-            <p style="margin-top: 1rem; text-align: center;">Belum punya akun? <a href="register.php">Daftar di sini</a></p>
+            <p class="hint-text" style="margin-top: 1rem;">Belum punya akun? <a href="register.php">Daftar di sini</a></p>
         </section>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
